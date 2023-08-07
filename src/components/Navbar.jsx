@@ -6,7 +6,7 @@ const NavBar = () => {
                 <img className='logo' src={logo}/>
             </div>
             <div className='col-xs-12 col-md-6 d-none d-md-block d-flex justify-content-center'>
-                <h1>Recipe-FY</h1>
+                <h1>Crypto News Network</h1>
             </div>
             
         </div>

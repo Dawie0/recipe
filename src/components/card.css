@@ -1,0 +1,28 @@
+.prop-image {
+    width: 98%;
+    border-radius: 20px;
+    max-height: 200px;
+}
+
+.card {
+    color: white;
+    background-color: #343434;
+    border: 1px solid;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.glass-morph {
+    background: rgba( 155, 155, 155, 0.1 );
+    
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.card:hover {
+    transition: all .4s ease-in-out;
+    transform: scale(1.01);
+    box-shadow: 0 1px 0 1px rgba(160, 192, 150, 0.308);
+}

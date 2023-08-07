@@ -1,42 +1,56 @@
-
-
+import { useState } from "react"
+import Card from "./Card";
+import axios from "axios"
 
 
 const SearchForm = () => {
+    const [page, setPage] = useState(1);
+    const [response, setResponse] = useState(null);
+
+    const getNews = async () => {
+        try {
+            const res = await axios.get("https://rapid-api-backends.vercel.app/api/news/", {
+              params: { page },
+            });
+            const { data } = res;
+            setResponse(data.data[0].screen_data.news);
+        } 
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+    if (response === null) {
+        getNews()
+    }
+
     return (
-        <div className="row d-flex mt-4 justify-content-center">
-            <div className="row justify-content-center">
-                <div className="col-8 mb-3">
-                    <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Search recipes" />
-                </div>
+        <div>
+            <div className="row d-flex mt-4 justify-content-center">
+                {response && 
+                    response.map((news, index) => {
+                        return(
+                            <Card 
+                            key={index}
+                            news={news}
+                            />
+                        ) 
+                    })}
             </div>
-            <div className="row justify-content-center">
-                <div className="col-4">
-                    <label htmlFor="diet">Diet</label>
-                    <select className="form-select" id="diet" aria-label="Default select example">
-                        <option defaultValue="none">none</option>
-                        <option value="pescetarian">pescetarian</option>
-                        <option value="lacto vegetarian">lacto vegetarian</option>
-                        <option value="ovo vegetarian">ovo vegetarian</option>
-                        <option value="vegan">vegan</option>
-                        <option value="vegetarian">vegetarian</option>
-                    </select>
-                </div>
-                <div className="col-4">
-                    <label htmlFor="exclude-ingredients">Exclude Ingredients</label>
-                    <input type="text" id="exclude-ingredients" className="form-control" placeholder="ex: Cilantro" aria-label="exclude ingredient" />
-                </div>
-                <div className='col-8 d-flex m-3 justify-content-center'>
-                    <button className='btn' 
-                        // onClick={(e) => {
-                        // e.preventDefault()
-                        // e.stopPropagation()
-                        // getProperties()}}
+            <div className="row d-flex mt-4 justify-content-center">
+                {response && 
+                    <div className="col-6 d-flex mb-3 justify-content-center">
+                        <button
+                            className="btn"
+                            onClick={() => {
+                            setPage(page + 1);
+                            getNews();
+                        }}
                         >
-                        {/* {loading ? <>Loading...</> : <>Search</>} */}
-                        Search
-                    </button>
-                </div>
+                            Load next page &rarr;
+                        </button>
+                    </div>
+                }
             </div>
         </div>
     )
