@@ -13,7 +13,8 @@ const Card = ( { news } ) => {
                 </div>
                 <a 
                     className=" col-12 text-center d-flex justify-content-center align-items-center"
-                    href={news.news_link ? news.news_link : news.third_party_url}>
+                    href={news.news_link ? news.news_link : news.third_party_url}
+                    target="_blank" rel='noreferrer'>
                     <h3>{news.HEADLINE}</h3>
                 </a>
                 <div className="col-12 text-center">
